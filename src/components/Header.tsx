@@ -1,0 +1,38 @@
+"use client";
+
+import { ShoppingCart, Menu, Search } from "lucide-react";
+
+export default function Header() {
+    return (
+        <header className="fixed top-0 left-0 right-0 z-40 bg-white/80 backdrop-blur-md border-b border-orange-100">
+            <div className="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+                <div className="flex items-center gap-8">
+                    <h1 className="text-2xl font-bold tracking-tighter text-[#3d2b1f]">
+                        PONE LA PAVA
+                    </h1>
+                    <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-[#5c4033]">
+                        <a href="#" className="hover:text-orange-600 transition-colors">Mates</a>
+                        <a href="#" className="hover:text-orange-600 transition-colors">Termos</a>
+                        <a href="#" className="hover:text-orange-600 transition-colors">Bombillas</a>
+                        <a href="#" className="hover:text-orange-600 transition-colors">Kits</a>
+                    </nav>
+                </div>
+
+                <div className="flex items-center gap-4">
+                    <button className="p-2 text-[#3d2b1f] hover:bg-orange-50 rounded-full transition-colors">
+                        <Search size={20} />
+                    </button>
+                    <button className="p-2 text-[#3d2b1f] hover:bg-orange-50 rounded-full transition-colors relative">
+                        <ShoppingCart size={20} />
+                        <span className="absolute top-0 right-0 h-4 w-4 bg-orange-600 text-white text-[10px] flex items-center justify-center rounded-full font-bold">
+                            0
+                        </span>
+                    </button>
+                    <button className="md:hidden p-2 text-[#3d2b1f] hover:bg-orange-50 rounded-full transition-colors">
+                        <Menu size={20} />
+                    </button>
+                </div>
+            </div>
+        </header>
+    );
+}

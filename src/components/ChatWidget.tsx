@@ -11,7 +11,7 @@ interface Message {
   timestamp: Date;
 }
 
-const WEBHOOK_URL = "https://n8n.resto.guruweb.com.ar/webhook/pone-la-pava";
+const WEBHOOK_URL = "https://n8n.resto.guruweb.com.ar/webhook/c25fc354-2a4e-4831-abdd-85113e39c772/chat";
 
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
@@ -58,7 +58,7 @@ export default function ChatWidget() {
       if (!response.ok) throw new Error("Falla en el webhook");
 
       const data = await response.json();
-      
+
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
         text: data.output || data.message || "Lo siento, no pude procesar tu mensaje.",
@@ -127,16 +127,14 @@ export default function ChatWidget() {
                   {messages.map((msg) => (
                     <div
                       key={msg.id}
-                      className={`flex ${
-                        msg.sender === "user" ? "justify-end" : "justify-start"
-                      }`}
+                      className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"
+                        }`}
                     >
                       <div
-                        className={`max-w-[80%] rounded-2xl px-4 py-2 text-sm ${
-                          msg.sender === "user"
+                        className={`max-w-[80%] rounded-2xl px-4 py-2 text-sm ${msg.sender === "user"
                             ? "bg-[#3d2b1f] text-white rounded-tr-none"
                             : "bg-white text-gray-800 shadow-sm ring-1 ring-black/5 rounded-tl-none"
-                        }`}
+                          }`}
                       >
                         {msg.text}
                       </div>
