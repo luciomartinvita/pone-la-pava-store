@@ -55,9 +55,16 @@ export default function ChatWidget() {
         }),
       });
 
-      if (!response.ok) throw new Error("Falla en el webhook");
+      console.log("n8n Response Status:", response.status);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("n8n Error Body:", errorText);
+        throw new Error(`Falla en el webhook: ${response.status}`);
+      }
 
       const data = await response.json();
+      console.log("n8n Data:", data);
 
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
@@ -132,8 +139,8 @@ export default function ChatWidget() {
                     >
                       <div
                         className={`max-w-[80%] rounded-2xl px-4 py-2 text-sm ${msg.sender === "user"
-                            ? "bg-[#3d2b1f] text-white rounded-tr-none"
-                            : "bg-white text-gray-800 shadow-sm ring-1 ring-black/5 rounded-tl-none"
+                          ? "bg-[#3d2b1f] text-white rounded-tr-none"
+                          : "bg-white text-gray-800 shadow-sm ring-1 ring-black/5 rounded-tl-none"
                           }`}
                       >
                         {msg.text}

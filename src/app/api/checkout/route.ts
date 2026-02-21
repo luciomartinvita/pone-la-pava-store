@@ -8,7 +8,7 @@ export async function POST(req: Request) {
     try {
         const { items, payer } = await req.json();
 
-        const appUrl = (process.env.NEXT_PUBLIC_APP_URL || 'https://ponelapava.com.ar').replace(/\/$/, '');
+        const appUrl = (process.env.NEXT_PUBLIC_APP_URL || 'https://ponelapava.ar').replace(/\/$/, '');
 
         const preferenceData = {
             body: {

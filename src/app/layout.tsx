@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Pone La Pava - Tienda de Mates y Termos",
     description: "La tienda especialista en el ritual del mate. Mates artesanales, personalizados y termos de alta gama.",
-    url: "https://ponelapava.com.ar",
+    url: "https://ponelapava.ar",
     siteName: "Pone La Pava",
     images: [
       {
@@ -54,10 +54,10 @@ export default function RootLayout({
       >
         <OrganizationJsonLd
           name="Pone La Pava"
-          url="https://ponelapava.com.ar"
+          url="https://ponelapava.ar"
           description="Tienda de confianza para el ritual del mate en Argentina."
         />
-        <WebSiteJsonLd name="Pone La Pava" url="https://ponelapava.com.ar" />
+        <WebSiteJsonLd name="Pone La Pava" url="https://ponelapava.ar" />
         <CartProvider>
           {children}
           <CartSidebar />

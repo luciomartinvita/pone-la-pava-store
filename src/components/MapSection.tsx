@@ -20,7 +20,7 @@ export default function MapSection() {
                                 </div>
                                 <div>
                                     <h4 className="font-bold text-lg text-[#3d2b1f]">Dirección</h4>
-                                    <p className="text-gray-500 font-medium">Villa Mercedes, San Luis, Argentina</p>
+                                    <p className="text-gray-500 font-medium">Pedernera 546, D5370, Villa Mercedes, San Luis</p>
                                 </div>
                             </div>
 

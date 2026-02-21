@@ -258,7 +258,7 @@ export default function CheckoutPage() {
                                         <MapPin size={18} />
                                     </div>
                                     <p className="text-sm text-green-800 font-medium">
-                                        <strong>Punto de retiro:</strong> General Paz 450, Villa Mercedes, San Luis. <br />
+                                        <strong>Punto de retiro:</strong> Pedernera 546, D5370, Villa Mercedes, San Luis. <br />
                                         Te avisaremos por WhatsApp cuando tu pedido esté listo.
                                     </p>
                                 </div>
