@@ -49,10 +49,17 @@ export default function MapSection() {
                             <p className="text-orange-100 font-medium mb-2 uppercase tracking-widest text-xs">Tradición Matera</p>
                             <h3 className="text-2xl font-black mb-4">¿Buscás un mate único?</h3>
                             <p className="opacity-90 font-medium mb-6">Te esperamos con el agua lista para que elijas tu próximo compañero de aventuras.</p>
-                            <button className="px-6 py-3 bg-white text-orange-600 rounded-full font-bold hover:bg-orange-50 transition-all flex items-center gap-2">
-                                <Instagram size={18} />
-                                Seguinos en IG
-                            </button>
+                            <a
+                                href="https://www.instagram.com/ponelapavatiendademate/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-block"
+                            >
+                                <button className="px-6 py-3 bg-white text-orange-600 rounded-full font-bold hover:bg-orange-50 transition-all flex items-center gap-2">
+                                    <Instagram size={18} />
+                                    Seguinos en IG
+                                </button>
+                            </a>
                         </div>
                     </div>
 

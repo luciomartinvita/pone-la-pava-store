@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { ShoppingCart, Menu, Search, X, ChevronRight } from "lucide-react";
+import { ShoppingCart, Menu, Search, X, ChevronRight, Instagram, Facebook } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import Link from "next/link";
 import Image from "next/image";
@@ -171,11 +171,22 @@ export default function Header() {
                                     Pone La Pava Store
                                 </p>
                                 <div className="flex justify-center gap-4">
-                                    {['IG', 'FB', 'TK'].map(s => (
-                                        <div key={s} className="w-10 h-10 rounded-full bg-white border border-orange-100 flex items-center justify-center text-xs font-black text-[#3d2b1f]">
-                                            {s}
-                                        </div>
-                                    ))}
+                                    <a
+                                        href="https://www.instagram.com/ponelapavatiendademate/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="w-10 h-10 rounded-full bg-white border border-orange-100 flex items-center justify-center text-[#3d2b1f] hover:bg-orange-50 transition-colors"
+                                    >
+                                        <Instagram size={18} />
+                                    </a>
+                                    <a
+                                        href="https://www.facebook.com/ponelapavatiendademate"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="w-10 h-10 rounded-full bg-white border border-orange-100 flex items-center justify-center text-[#3d2b1f] hover:bg-orange-50 transition-colors"
+                                    >
+                                        <Facebook size={18} />
+                                    </a>
                                 </div>
                             </div>
                         </motion.div>

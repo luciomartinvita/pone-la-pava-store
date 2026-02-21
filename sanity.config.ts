@@ -3,6 +3,8 @@ import { structureTool } from 'sanity/structure'
 import { visionTool } from '@sanity/vision'
 import { schema } from './src/sanity/schemaTypes'
 
+import { media } from 'sanity-plugin-media'
+
 export default defineConfig({
     name: 'default',
     title: 'Pone La Pava - Admin',
@@ -12,7 +14,7 @@ export default defineConfig({
 
     basePath: '/studio',
 
-    plugins: [structureTool(), visionTool()],
+    plugins: [structureTool(), visionTool(), media()],
 
     schema: {
         types: schema.types,
