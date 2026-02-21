@@ -1,8 +1,26 @@
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 import Header from "@/components/Header";
 import { ArrowRight, Star, ShieldCheck, Truck } from "lucide-react";
 
-export default function Home() {
+async function getProducts() {
+  const query = `*[_type == "product"] | order(_createdAt desc) [0...6] {
+    _id,
+    name,
+    "slug": slug.current,
+    price,
+    category,
+    image,
+    description
+  }`;
+  const products = await client.fetch(query, {}, { next: { revalidate: 60 } });
+  return products;
+}
+
+export default async function Home() {
+  const products = await getProducts();
+
   return (
     <div className="min-h-screen bg-[#faf9f6] text-[#3d2b1f] selection:bg-orange-200">
       <Header />
@@ -70,18 +88,57 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Categories Preview */}
+      {/* Dynamic Products Section */}
       <section className="py-24 max-w-7xl mx-auto px-4">
         <div className="flex items-end justify-between mb-16">
           <div>
-            <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-4">Nuestras Categorías</h2>
+            <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-4 text-[#3d2b1f]">Nuestros Mates destacados</h2>
             <div className="h-1.5 w-20 bg-orange-600 rounded-full"></div>
           </div>
-          <button className="hidden sm:flex items-center gap-2 text-orange-700 font-bold hover:underline">
-            Ver todas <ArrowRight size={16} />
-          </button>
         </div>
 
+        {products.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+            {products.map((product: any) => (
+              <div key={product._id} className="group bg-white rounded-3xl p-4 shadow-sm border border-orange-100 hover:shadow-xl transition-all hover:-translate-y-2">
+                <div className="relative aspect-square mb-6 overflow-hidden rounded-2xl bg-gray-50">
+                  {product.image && (
+                    <Image
+                      src={urlFor(product.image).url()}
+                      alt={product.name}
+                      fill
+                      className="object-cover transition-transform group-hover:scale-105"
+                    />
+                  )}
+                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-orange-800 shadow-sm uppercase tracking-wider">
+                    {product.category}
+                  </div>
+                </div>
+                <div className="px-2 pb-2">
+                  <h3 className="text-xl font-bold mb-2 group-hover:text-orange-950 transition-colors uppercase tracking-tight">{product.name}</h3>
+                  <p className="text-gray-500 text-sm mb-4 line-clamp-2 md:h-10">{product.description}</p>
+                  <div className="flex items-center justify-between mt-auto">
+                    <span className="text-2xl font-black text-[#3d2b1f]">
+                      ${new Intl.NumberFormat('es-AR').format(product.price)}
+                    </span>
+                    <button className="bg-orange-50 text-orange-900 px-4 py-2 rounded-xl font-bold text-sm hover:bg-orange-600 hover:text-white transition-all">
+                      Añadir
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-20 bg-orange-50/30 rounded-[3rem] border border-dashed border-orange-200">
+            <p className="text-[#5c4033] font-medium italic">Estamos preparando las mejores piezas para vos...</p>
+          </div>
+        )}
+      </section>
+
+      {/* Categories Preview - Static Icons as fallback/complement */}
+      <section className="py-24 max-w-7xl mx-auto px-4 border-t border-orange-100">
+        <h3 className="text-2xl font-black mb-12 text-center uppercase tracking-widest text-[#3d2b1f]">Explorar por rubro</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {[
             { tag: "Mates", icon: "🧉", title: "Mates Imperiales", desc: "Cuero legítimo y virolas de alpaca." },
@@ -93,9 +150,6 @@ export default function Home() {
               <span className="text-7xl mb-6 relative z-10 block transition-transform group-hover:-rotate-12">{cat.icon}</span>
               <h3 className="text-2xl font-black mb-3 relative z-10">{cat.title}</h3>
               <p className="text-gray-500 text-center relative z-10 font-medium leading-relaxed">{cat.desc}</p>
-              <div className="mt-8 opacity-0 group-hover:opacity-100 transition-all bg-[#3d2b1f] text-white px-6 py-2 rounded-full text-sm font-bold shadow-lg transform translate-y-4 group-hover:translate-y-0">
-                Explorar
-              </div>
             </div>
           ))}
         </div>
