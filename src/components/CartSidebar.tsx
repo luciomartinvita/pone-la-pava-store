@@ -19,43 +19,9 @@ export default function CartSidebar() {
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleCheckout = async () => {
-        setIsLoading(true);
-        try {
-            const items = cart.map(item => ({
-                id: item.id,
-                title: item.name,
-                quantity: item.quantity,
-                unit_price: item.price,
-            }));
-
-            const response = await fetch('/api/checkout', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ items }),
-            });
-
-            if (!response.ok) {
-                const textError = await response.text();
-                throw new Error(`Error en API de checkout (${response.status}): ${textError}`);
-            }
-
-            const data = await response.json();
-
-            if (data.init_point) {
-                window.location.href = data.init_point;
-            } else {
-                console.error("Error al obtener el link de pago, sin init_point en data:", data);
-                alert("Hubo un error al procesar el pago. Por favor intenta de nuevo.");
-            }
-        } catch (error) {
-            console.error('Detalles del error al procesar el checkout:', error);
-            alert("Hubo un error al conectar con el servidor. Por favor intenta de nuevo.");
-        } finally {
-            setIsLoading(false);
-        }
+    const handleCheckout = () => {
+        setIsCartOpen(false);
+        window.location.href = '/checkout';
     };
 
     return (

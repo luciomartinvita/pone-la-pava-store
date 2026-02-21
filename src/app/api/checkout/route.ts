@@ -8,28 +8,35 @@ export async function POST(req: Request) {
     try {
         const { items, payer } = await req.json();
 
-        const preference = new Preference(client);
+        const appUrl = (process.env.NEXT_PUBLIC_APP_URL || 'https://ponelapava.com.ar').replace(/\/$/, '');
 
-        const response = await preference.create({
+        const preferenceData = {
             body: {
                 items: items.map((item: any) => ({
-                    id: item.id,
-                    title: item.title,
-                    quantity: item.quantity,
-                    unit_price: item.unit_price,
+                    id: String(item.id),
+                    title: String(item.title),
+                    quantity: Number(item.quantity),
+                    unit_price: Number(item.unit_price),
                     currency_id: 'ARS',
                 })),
                 payer: {
-                    email: payer?.email || 'test_user_78672195@testuser.com', // Correo de prueba provisto por MP o el del cliente
+                    email: payer?.email || 'test_user_78672195@testuser.com',
                 },
                 back_urls: {
-                    success: `${process.env.NEXT_PUBLIC_APP_URL || 'https://ponelapava.com.ar'}/checkout/success`,
-                    failure: `${process.env.NEXT_PUBLIC_APP_URL || 'https://ponelapava.com.ar'}/checkout/failure`,
-                    pending: `${process.env.NEXT_PUBLIC_APP_URL || 'https://ponelapava.com.ar'}/checkout/pending`,
+                    success: `${appUrl}/checkout/success`,
+                    failure: `${appUrl}/checkout/failure`,
+                    pending: `${appUrl}/checkout/pending`,
                 },
-                auto_return: 'approved',
+                // auto_return: 'approved',
+                statement_descriptor: "PONE LA PAVA",
+                external_reference: `ORDER-${Date.now()}`,
             }
-        });
+        };
+
+        console.log("Creating MP Preference with:", JSON.stringify(preferenceData, null, 2));
+
+        const preference = new Preference(client);
+        const response = await preference.create(preferenceData);
 
         // Debug response just in case
         console.log("Mercado Pago Raw Response:", JSON.stringify(response, null, 2));

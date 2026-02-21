@@ -2,6 +2,8 @@
 
 import { ShoppingCart, Menu, Search } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import Link from "next/link";
+import Image from "next/image";
 
 export default function Header() {
     const { cartCount, setIsCartOpen } = useCart();
@@ -18,9 +20,20 @@ export default function Header() {
             <div className="max-w-7xl mx-auto px-4 h-16 md:h-20 flex items-center justify-between w-full">
                 <div className="flex items-center gap-8">
                     {/* Changed from h1 to div for SEO architecture */}
-                    <div className="text-2xl font-black tracking-tighter text-[#3d2b1f]">
-                        PONE LA PAVA
-                    </div>
+                    <Link href="/" className="flex items-center gap-2 group">
+                        <div className="relative w-12 h-12 md:w-16 md:h-16 transition-transform group-hover:scale-105">
+                            <Image
+                                src="/logo.png"
+                                alt="Pone La Pava - Logo"
+                                fill
+                                className="object-contain"
+                                priority
+                            />
+                        </div>
+                        <div className="text-xl md:text-2xl font-black tracking-tighter text-[#3d2b1f] hidden sm:block">
+                            PONE LA PAVA
+                        </div>
+                    </Link>
                     <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-[#5c4033]">
                         <a href="#" className="hover:text-orange-600 transition-colors">Mates</a>
                         <a href="#" className="hover:text-orange-600 transition-colors">Termos</a>
